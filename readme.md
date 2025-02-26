@@ -1,0 +1,2 @@
+- [Article](https://smithkruz.medium.com/building-a-restful-api-with-node-js-express-postgresql-and-jwt-authentication-944212534230)
+- [Code](https://github.com/samsmithKruz/node_trial_stage_2/tree/main)

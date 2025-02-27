@@ -13,5 +13,25 @@ class Database {
 
     // optional: log when connection is established
     this.pool.on("connect", () => console.log("Connected to PSQL db"));
+
+    // optional: log errors with db connection
+    this.pool.on("error", (err) => {
+      console.error("Unexpected error on idle client", err);
+      process.exit(-1);
+    });
+  }
+
+  async query(text, params) {
+    this.client = await this.pool.connect();
+    const res = await this.client.query(text, params);
+    await this.close();
+    return res;
+  }
+
+  async close() {
+    await this.client.end();
+    console.log("Closed db connection");
   }
 }
+
+module.exports = new Database();

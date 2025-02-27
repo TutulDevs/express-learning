@@ -29,7 +29,7 @@ router.get("/users/:id", async (req, res) => {
     [id, userId]
   );
 
-  console.log("user id: ", record);
+  // console.log("user id: ", record);
 
   if (record.rowCount > 0) {
     let { userid, firstname, lastname, email, phone } = record.rows[0];

@@ -76,22 +76,10 @@ router.post("/register", async (req, res) => {
         [userid]
       );
 
-      const token = await jwt.generateToken({ userId: userid });
-
       return res.status(201).json({
         code: 201,
         status: "success",
-        message: "Registration successful",
-        data: {
-          accessToken: token,
-          user: {
-            userId: "" + userid.userid,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phone: phone || "",
-          },
-        },
+        message: "Registration successful. Please login.",
       });
     })
     .catch((error) => {

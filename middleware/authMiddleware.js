@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
   try {
     let { userId } = await jwt.verifyToken(token);
 
-    const user = await db.query(`SELECT email FROM users WHERE userid = $1`, [
+    const user = await db.query(`SELECT email FROM doctors WHERE id = $1`, [
       userId,
     ]);
 

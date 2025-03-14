@@ -3,27 +3,31 @@ const router = express.Router();
 const db = require("../libraries/Database");
 const jwt = require("../libraries/JWT");
 const crypto = require("crypto");
+const { register, login } = require("../controllers/authController");
 
 // register
-router.post("/register", async (req, res) => {
+router.post("/register", register);
+
+// register old
+router.post("/register-old", async (req, res) => {
   const { firstName, lastName, email, phone, password } = req.body;
   let errors = [];
 
-  if (!firstName || firstName.lenght == 0) {
+  if (!firstName || firstName.length == 0) {
     errors.push({ field: "firstName", message: "First name is invalid" });
   }
 
-  if (!lastName || lastName.lenght == 0) {
+  if (!lastName || lastName.length == 0) {
     errors.push({ field: "lastName", message: "Last name is invalid" });
   }
 
-  if (!password || password.lenght == 0) {
+  if (!password || password.length == 0) {
     errors.push({ field: "password", message: "Password is invalid" });
   }
 
   if (
     !email ||
-    email.lenght == 0 ||
+    email.length == 0 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   ) {
     errors.push({ field: "email", message: "Email is invalid" });

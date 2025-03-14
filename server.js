@@ -1,6 +1,5 @@
 const express = require("express");
 const loggedIn = require("./middleware/authMiddleware");
-const apiRoute = require("./routes/api");
 const authRoute = require("./routes/auth");
 const migrateRoute = require("./routes/migrate");
 require("dotenv").config();
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use routes
-app.use("/api", loggedIn, apiRoute);
+// app.use("/api", loggedIn, apiRoute);
 app.use("/auth", authRoute);
 app.use("/migrate", migrateRoute);
 

@@ -2,6 +2,7 @@ const express = require("express");
 const loggedIn = require("./middleware/authMiddleware");
 const authRoute = require("./routes/auth");
 const migrateRoute = require("./routes/migrate");
+const doctors = require("./routes/doctors");
 require("dotenv").config();
 
 const app = express();
@@ -14,9 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use routes
-// app.use("/api", loggedIn, apiRoute);
 app.use("/auth", authRoute);
 app.use("/migrate", migrateRoute);
+app.use("/api/doctors", loggedIn, doctors);
 
 app.get("/", (req, res) => {
   res.status(200).json({ code: 200, message: "All ok" });

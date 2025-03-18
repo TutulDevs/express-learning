@@ -123,7 +123,7 @@ const login = async (req, res) => {
       code: 200,
       message: "Login successful!",
       user: { user },
-      accessToken: await jwt.generateToken({ id: user.id }),
+      accessToken: await jwt.generateToken({ userId: user.id }),
     });
   } catch (error) {
     res

@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../libraries/Database");
+const crypto = require("crypto");
 
+// tables
 router.all("/", async (req, res) => {
   // create doctors table
   await db.query(`
@@ -76,6 +78,49 @@ router.all("/", async (req, res) => {
   res.status(201).json({
     message: "Migrated Successfully",
   });
+});
+
+// seed data
+router.all("/seed", async (req, res) => {
+  try {
+    // insert doctors
+    const hashedPassword = crypto
+      .createHash("md5")
+      .update("Pass@1234")
+      .digest("hex");
+
+    await db.query(
+      `
+      INSERT INTO doctors (full_name, email, password)
+      VALUES ('John Doe', 'd1@email.com', $1)
+      `,
+      [hashedPassword]
+    );
+
+    // insert patients
+    await db.query(
+      `
+      INSERT INTO patients (phone, age, full_name)
+      VALUES (1745370470, 32, 'KH Tutul')
+      `
+    );
+
+    // insert medicines
+    await db.query(
+      `
+      INSERT INTO medicines (type, title, company_name)
+      VALUES 
+        (1, 'Betabis 10g', ''),
+        (2, 'Ace 100 ml', '')
+      `
+    );
+
+    res.status(200).json({ code: 200, message: "Seeded data successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ code: 500, message: error?.message || "Something went wrong" });
+  }
 });
 
 module.exports = router;

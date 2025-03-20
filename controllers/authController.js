@@ -119,11 +119,15 @@ const login = async (req, res) => {
 
     const user = userQuery.rows[0];
 
+    const accessToken = await jwt.generateToken({ userId: user.id });
+    const { exp } = await jwt.verifyToken(accessToken);
+
     res.status(200).json({
       code: 200,
       message: "Login successful!",
       user: { user },
-      accessToken: await jwt.generateToken({ userId: user.id }),
+      accessToken: accessToken,
+      expires_at: new Date(exp * 1000),
     });
   } catch (error) {
     res

@@ -25,7 +25,7 @@ router.all("/", async (req, res) => {
       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
       phone INTEGER NOT NULL UNIQUE,
       age INTEGER NOT NULL,
-      full_name VARCHAR(255),
+      full_name VARCHAR(255) NOT NULL,
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );

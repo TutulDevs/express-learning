@@ -4,6 +4,8 @@ const {
   createPatient,
   getAllPatients,
   getPatientByIdOrPhone,
+  updatePatientById,
+  deletePatient,
 } = require("../controllers/patientController");
 
 // create patient
@@ -16,7 +18,9 @@ router.get("/", getAllPatients);
 router.get("/:id", getPatientByIdOrPhone);
 
 // update
+router.put("/:id", updatePatientById);
 
 // delete
+router.delete("/:id", deletePatient);
 
 module.exports = router;
